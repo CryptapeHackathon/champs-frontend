@@ -4,5 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  angularServerUrl: "localhost:4200",
+  backendServerUrl: "192.168.2.70:3000",
+
+  backendMethods:{
+    getMethod: "hackathons.json",
+    getTeamMethod: "teams.json"
+  }
 };

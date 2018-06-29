@@ -1,0 +1,50 @@
+<div>
+  <dhcp-navbar>
+  </dhcp-navbar>
+
+  <div class="project-filter">
+
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="project-list col-8">
+        <div class="card text-center">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" (click)="selectHackathon('preparation')">预众筹</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="selectHackathon('crow_funding')">众筹中</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="selectHackathon('apply_participation')">报名中</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="selectHackathon('gaming')">比赛中</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="selectHackathon('voting')">投票中</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="selectHackathon('finished')">已完成</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="selectHackathon('failed')">未成功</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="list-group">
+          <div *ngFor="let hackathon of selectedHackathons">
+            <a [attr.href]="'/dhcpProject;projectId=' + hackathon['id']" class="list-group-item list-group-item-action">
+              <h4 class="list-group-item-heading">{{hackathon.name}}</h4>
+              <p class="list-group-item-text">
+                {{hackathon.host_introduction}}
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-2"></div>
+    </div>
+  </div>

@@ -1,0 +1,21 @@
+.list-group a:hover{
+    background: #D3D3D3
+}
+
+.list-group a{
+    background: #f8f8ff
+}
+
+.project-filter {
+    margin-top: 2.5em;
+    margin-bottom: 2.5em
+}
+
+.project-filter ul li{
+    float: left;
+    left: 10em;
+}
+
+.project-lsit .list-group a:first{
+    border-radius: 0%
+}

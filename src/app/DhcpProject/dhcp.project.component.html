@@ -1,0 +1,164 @@
+<div>
+    <dhcp-navbar></dhcp-navbar>
+
+    <div style="margin-top:2em">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8" style="background:#f8f8ff">
+                <h2>黑客松名称： {{selectedHackathon['name']}}</h2>
+                <p>黑客松简介： {{selectedHackathon['host_introduction']}}
+                </p>
+                <h4>黑客松状态</h4>
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <label class="nav-link" (click)="showPoolInfo()">奖池情况</label>
+                        </li>
+                        <li class="nav-item">
+                            <label class="nav-link" (click)="showTeams()">参赛队伍</label>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div *ngIf="poolInfo">
+                        <h5>众筹中</h5>
+                        <div *ngIf="showByStatus(selectedHackathon['current_status'], 'crow_funding')" class="progress">
+                            <div class="progress-bar progress-bar-striped" [ngClass]="setProgressClass(5, 10)" role="progressbar" [ngStyle]="{'width':setPercentage(5,10)}"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div *ngIf="!showByStatus(selectedHackathon['current_status'], 'crow_funding')">
+                            该黑客松还未开始众筹
+                        </div>
+
+                        <h5>报名中</h5>
+                        <div *ngIf="showByStatus(selectedHackathon['current_status'], 'apply_participation')">
+                            <p>
+                                报名人数，截至日期，坑位数
+                            </p>
+                        </div>
+                        <div *ngIf="!showByStatus(selectedHackathon['current_status'], 'apply_participation')">
+                            <p>
+                                该黑客松还未开始报名
+                            </p>
+                        </div>
+
+                        <h5>进行中</h5>
+                        <div *ngIf="showByStatus(selectedHackathon['current_status'], 'gaming')" class="progress">
+                            <div class="progress-bar progress-bar-striped" [ngClass]="setProgressClass(10, 10)" role="progressbar" [ngStyle]="{'width':setPercentage(10,10)}"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div *ngIf="!showByStatus(selectedHackathon['current_status'], 'gaming')">
+                            <p>
+                                该黑客松还未开始比赛
+                            </p>
+                        </div>
+
+
+                        <h5>投票中</h5>
+                        <div *ngIf="!showByStatus(selectedHackathon['current_status'], 'voting')">
+                            <p>
+                                该黑客松还未开始比赛
+                            </p>
+                        </div>
+                        <div *ngIf="showByStatus(selectedHackathon['current_status'], 'voting')">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">队名</th>
+                                        <th scope="col">票数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>队名1</td>
+                                        <td>票数</td>
+                                    </tr>
+                                    <tr>
+                                        <td>队名2</td>
+                                        <td>票数2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>队名3</td>
+                                        <td>票数3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h5>比赛结果</h5>
+                        <div *ngIf="!showByStatus(selectedHackathon['current_status'], 'finished')">
+                            该黑客松还未结束
+                        </div>
+                        <div *ngIf="showByStatus(selectedHackathon['current_status'], 'finished')">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">名次</th>
+                                        <th scope="col">队名</th>
+                                        <th scope="col">奖金</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>队名1</td>
+                                        <td>奖金1</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>队名2</td>
+                                        <td>奖金2</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>队名3</td>
+                                        <td>奖金3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div *ngIf="!poolInfo">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">号码</th>
+                                    <th scope="col">队名</th>
+                                    <th scope="col">公钥</th>
+                                    <th scope="col">信息</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>队名1</td>
+                                    <td>公钥1</td>
+                                    <button (click)="showTeamProjectWithName('队名1')">Show Team Project</button>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>队名2</td>
+                                    <td>公钥2</td>
+                                    <button (click)="showTeamProjectWithName('队名2')">Show Team Project</button>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>队名3</td>
+                                    <td>公钥3</td>
+                                    <button (click)="showTeamProjectWithName('队名3')">Show Team Project</button>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button *ngIf="showTeamProject" (click)="closeTeamProject()">Close</button>
+
+                        <div style="margin-top:5em" *ngIf="showTeamProject">
+                            <team-project [TeamName]="teamName"></team-project>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+
+        </div>
+    </div>
+</div>
