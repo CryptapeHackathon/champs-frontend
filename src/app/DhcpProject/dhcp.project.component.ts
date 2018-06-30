@@ -19,7 +19,7 @@ export class DhcpProjectComponent implements OnInit {
     private teamProject: string = ""
     private hackathons: Object[];
     private teams: Object[];
-    private selectedHackathon: Object = { current_status: 'default' };
+    private selectedHackathon: any = { current_status: 'default' };
     private statusMap = {
         default: -1,
         preparation: 0,
@@ -195,7 +195,7 @@ async function preparation(selectedHackathon) {
     "contract": "hackathon"
   })
 
-  const res = await window.nervosweb3.eth.sendTransaction({
+  const res = await window['nervosweb3'].eth.sendTransaction({
     to: selectedHackathon.address,
     nonce: Date.now(),
     quota: 1000000000,
@@ -210,7 +210,7 @@ async function preparation(selectedHackathon) {
 
 // window.MyAddress
 async function crowFunding(selectedHackathon) {
-  const address = window.MyAddress
+  const address = window['MyAddress']
   console.log({
     "function": "buy",
     "args":[address],
@@ -223,7 +223,7 @@ async function crowFunding(selectedHackathon) {
   })
 
 
-  const res = await window.nervosweb3.eth.sendTransaction({
+  const res = await window['nervosweb3'].eth.sendTransaction({
     to: selectedHackathon.address,
     nonce: Date.now(),
     quota: 1000000000,
@@ -243,7 +243,7 @@ async function startSignUp(selectedHackathon) {
     "contract": "hackathon"
   })
 
-  const res = await window.nervosweb3.eth.sendTransaction({
+  const res = await window['nervosweb3'].eth.sendTransaction({
     to: selectedHackathon.address,
     nonce: Date.now(),
     quota: 1000000000,
@@ -263,7 +263,7 @@ async function startVote(selectedHackathon) {
     "contract": "hackathon"
   })
 
-  const res = await window.nervosweb3.eth.sendTransaction({
+  const res = await window['nervosweb3'].eth.sendTransaction({
     to: selectedHackathon.address,
     nonce: Date.now(),
     quota: 1000000000,
@@ -278,7 +278,7 @@ async function startVote(selectedHackathon) {
 
 async function getReceipt(hash) {
   while(true) {
-    const data = await nervosweb3.eth.getTransactionReceipt(hash)
+    const data = await window['nervosweb3'].eth.getTransactionReceipt(hash)
 
     if (!data.result) {
       continue

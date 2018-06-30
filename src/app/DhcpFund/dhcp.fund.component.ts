@@ -78,7 +78,7 @@ export class DhcpFundComponent implements OnInit {
       .then(function (response) {
         console.log(response)
         const abiData = response.data.data
-        return window.nervosweb3.eth.sendTransaction({
+        return window['nervosweb3'].eth.sendTransaction({
           to: '0x430ae2d2860a2aadd7acdb4fb3c1e7574964217c',
           nonce: Date.now(),
           quota: 1000000000,
@@ -115,7 +115,7 @@ export class DhcpFundComponent implements OnInit {
 
 async function getReceipt(hash) {
   while(true) {
-    const data = await window.nervosweb3.eth.getTransactionReceipt(hash)
+    const data = await window['nervosweb3'].eth.getTransactionReceipt(hash)
 
     if (!data.result) {
       continue
