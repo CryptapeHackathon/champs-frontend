@@ -28,6 +28,9 @@ export class DhcpProjectComponent implements OnInit {
         finished: 5,
         failed: 6
     }
+    private host_fund: number = 0;
+    private target_fund: number = 0;
+    
 
     //need a functino to get all information about a specific hks
     ngOnInit() {
@@ -50,6 +53,13 @@ export class DhcpProjectComponent implements OnInit {
                 this.hackathons = JSON.parse(data['_body']);
                 console.log(this.projectId);
                 this.selectedHackathon = this.hackathons.filter(x => x['id'] == Number.parseInt(this.projectId))[0];
+                if(this.selectedHackathon['host_fund_eth'] != undefined 
+                    &&this.selectedHackathon['host_fund_eth'] != null
+                    && this.selectedHackathon['target_fund_eth'] != undefined
+                    && this.selectedHackathon['target_fund_eth'] != null){
+                    this.host_fund = this.selectedHackathon['host_fund_eth'];
+                    this.target_fund = this.selectedHackathon['target_fund_eth'];    
+                }
                 console.log(this.selectedHackathon)
             },
             (err) => {

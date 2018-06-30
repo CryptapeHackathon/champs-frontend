@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">DAHP(线上去中心化黑客松平台)</a>
+    <a class="navbar-brand" [attr.href]="homePath">DAHP(线上去中心化黑客松平台)</a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -8,15 +8,15 @@
     <div class="navbar-collapse collapse" id="navbarColor01" style="">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">活动形式
+                <a class="nav-link" [attr.href]="introductionFullPath">活动形式
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">我要发起</a>
+                <a class="nav-link" href="http://localhost:4200/dhcpFund">创建黑客松</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">注册</a>
+                <a class="nav-link" href="http://localhost:4200/dhcpReg">注册</a>
             </li>
         </ul>
         <form class="form-inline">

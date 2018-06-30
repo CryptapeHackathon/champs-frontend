@@ -23,7 +23,8 @@
                     <div *ngIf="poolInfo">
                         <h5>众筹中</h5>
                         <div *ngIf="showByStatus(selectedHackathon['current_status'], 'crow_funding')" class="progress">
-                            <div class="progress-bar progress-bar-striped" [ngClass]="setProgressClass(5, 10)" role="progressbar" [ngStyle]="{'width':setPercentage(5,10)}"
+                            <div>众筹地址： {{selectedHackathon.address}}<br></div>
+                            <div class="progress-bar progress-bar-striped" [ngClass]="setProgressClass(host_fund, target_fund)" role="progressbar" [ngStyle]="{'width':setPercentage(5,10)}"
                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div *ngIf="!showByStatus(selectedHackathon['current_status'], 'crow_funding')">
@@ -122,30 +123,16 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">号码</th>
                                     <th scope="col">队名</th>
                                     <th scope="col">公钥</th>
                                     <th scope="col">信息</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>队名1</td>
-                                    <td>公钥1</td>
-                                    <button (click)="showTeamProjectWithName('队名1')">Show Team Project</button>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>队名2</td>
-                                    <td>公钥2</td>
-                                    <button (click)="showTeamProjectWithName('队名2')">Show Team Project</button>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>队名3</td>
-                                    <td>公钥3</td>
-                                    <button (click)="showTeamProjectWithName('队名3')">Show Team Project</button>
+                                <tr *ngFor="let team of teams">
+                                    <td>{{team['name']}}</td>
+                                    <td>{{team['address']}}</td>
+                                    <button (click)="showTeamProjectWithName(team['name'])">Show Team Project</button>
                                 </tr>
                             </tbody>
                         </table>

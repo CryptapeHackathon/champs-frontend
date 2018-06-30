@@ -1,0 +1,28 @@
+<div>
+    <dhcp-navbar></dhcp-navbar>
+    <div class="col-2"></div>
+    <div class="col-8">
+        
+        <form>
+            <div>
+                <label class="col-1">用户名 </label>
+                <input id="userName" type="text">
+            </div>
+            <div>
+                <label class='col-1'>密码 </label>
+                <input id="password" type="password">
+            </div>
+            <div>
+                <label class="col-1">地址</label>
+                <input id="address" type="text">
+            </div>
+            <div>
+                <label class="col-1">简介</label>
+                <textarea id="bio"></textarea>
+            </div>
+            <button class="btn btn-primary" (click)="registerNewUser()">注册</button>
+        </form>
+
+    </div>
+    <div class="col-2"></div>
+</div>

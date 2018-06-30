@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { environment } from "../../environments/environment"
 
 @Component({
     selector: "dhcp-navbar",
@@ -6,4 +7,10 @@ import { Component } from "@angular/core";
     styleUrls: ['./dhcp.navbar.component.css']
 })
 
-export class DhcpNavBar{}
+export class DhcpNavBar{
+    private frontendurl = environment.angularServerUrl;
+    private path = "dhcpList";
+    private introductionPath = "dhcpIntro";
+    private homePath = "http://" + this.frontendurl + "/" + this.path;
+    private introductionFullPath = "http://" + this.frontendurl + "/" + this.introductionPath;
+}
