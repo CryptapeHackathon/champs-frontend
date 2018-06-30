@@ -11,25 +11,25 @@
           <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
               <li class="nav-item">
-                <a class="nav-link active" (click)="selectHackathon('preparation')">预众筹</a>
+                <a class="nav-link" [ngClass]="verifyActive('preparation')" (click)="selectHackathon('preparation')">预众筹</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" (click)="selectHackathon('crow_funding')">众筹中</a>
+                <a class="nav-link" [ngClass]="verifyActive('crow_funding')" (click)="selectHackathon('crow_funding')">众筹中</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" (click)="selectHackathon('apply_participation')">报名中</a>
+                <a class="nav-link" [ngClass]="verifyActive('apply_participation')" (click)="selectHackathon('apply_participation')">报名中</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" (click)="selectHackathon('gaming')">比赛中</a>
+                <a class="nav-link" [ngClass]="verifyActive('gaming')" (click)="selectHackathon('gaming')">比赛中</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" (click)="selectHackathon('voting')">投票中</a>
+                <a class="nav-link" [ngClass]="verifyActive('voting')" (click)="selectHackathon('voting')">投票中</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" (click)="selectHackathon('finished')">已完成</a>
+                <a class="nav-link" [ngClass]="verifyActive('finished')" (click)="selectHackathon('finished')">已完成</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" (click)="selectHackathon('failed')">未成功</a>
+                <a class="nav-link" [ngClass]="verifyActive('failed')" (click)="selectHackathon('failed')">未成功</a>
               </li>
             </ul>
           </div>

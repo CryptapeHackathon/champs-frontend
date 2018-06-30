@@ -12,11 +12,19 @@ export class DhcpListComponent implements OnInit {
 
     private hackathons: Object[];
     private selectedHackathons: Object[];
+    private status = "preparation";
 
     constructor(public http: Http) { }
 
     private selectHackathon(filterName: string) {
         this.selectedHackathons = this.hackathons.filter(x => x['current_status'] == filterName)
+        this.status = filterName;
+    }
+
+    private verifyActive(status: string){
+        if(this.status == status){
+            return 'active'
+        }
     }
 
     ngOnInit() {
