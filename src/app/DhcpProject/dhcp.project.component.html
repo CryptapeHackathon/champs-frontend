@@ -22,12 +22,13 @@
                 <div>
                     <div *ngIf="poolInfo">
                         <h5>众筹中</h5>
-                        <div>众筹地址：{{selectedHackathon.address}}</div><button class="btn btn-primary">我要众筹</button>
+                        <div>众筹地址：{{selectedHackathon.address}}</div>
+                        <button type="button" (click)="statusBtn($event)" class="btn btn-primary">{{selectedHackathon.statusText}}</button>
                         <div>众筹额度：{{host_fund}}</div>
                         <div>已有募集：{{target_fund}}</div>
                         <div *ngIf="showByStatus(selectedHackathon['current_status'], 'crow_funding')" class="progress">
-                            <div class="progress-bar progress-bar-striped" 
-                                [ngClass]="setProgressClass(host_fund, target_fund)" 
+                            <div class="progress-bar progress-bar-striped"
+                                [ngClass]="setProgressClass(host_fund, target_fund)"
                                 role="progressbar" [ngStyle]="{'width':setPercentage(host_fund,host_fund)}"
                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -128,7 +129,7 @@
                             <tbody>
                                 <tr *ngFor="let team of teams">
                                     <td>{{team['name']}}</td>
-                                    <td>{{team['address']}}</td>    
+                                    <td>{{team['address']}}</td>
                                     <td><button class="btn btn-primary" (click)="showTeamProjectWithName(team['name'], team['introduction'])">查看详细信息</button></td>
                                     <td><button class="btn btn-primary" (click)="voteForTeamWithAddress(team['address'])">投一票</button></td>
                                 </tr>

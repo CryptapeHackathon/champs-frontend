@@ -6,7 +6,6 @@ import axios from 'axios'
 import * as moment from 'moment'
 import * as $ from 'jquery'
 
-const nervosweb3 = (window as any).nervosweb3
 @Component({
     moduleId: module.id,
     templateUrl: './dhcp.fund.component.html',
@@ -79,7 +78,7 @@ export class DhcpFundComponent implements OnInit {
       .then(function (response) {
         console.log(response)
         const abiData = response.data.data
-        return nervosweb3.eth.sendTransaction({
+        return window.nervosweb3.eth.sendTransaction({
           to: '0x430ae2d2860a2aadd7acdb4fb3c1e7574964217c',
           nonce: Date.now(),
           quota: 1000000000,
@@ -116,7 +115,7 @@ export class DhcpFundComponent implements OnInit {
 
 async function getReceipt(hash) {
   while(true) {
-    const data = await nervosweb3.eth.getTransactionReceipt(hash)
+    const data = await window.nervosweb3.eth.getTransactionReceipt(hash)
 
     if (!data.result) {
       continue

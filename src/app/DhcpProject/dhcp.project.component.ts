@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core"
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Http } from '@angular/http'
 import { environment } from "../../environments/environment";
+import axios from 'axios'
 
 @Component({
     moduleId: module.id,
@@ -55,9 +56,24 @@ export class DhcpProjectComponent implements OnInit {
                     console.log(this.projectId);
                     this.selectedHackathon = this.hackathons.filter(x => x['id'] == Number.parseInt(this.projectId))[0];
 
+                    console.log(this.selectedHackathon, 'selectedHackathon')
+                    switch(this.selectedHackathon.current_status) {
+                      case 'preparation':
+                        this.selectedHackathon.statusText = "开始众筹"
+                        break;
+                      case 'crow_funding':
+                        this.selectedHackathon.statusText = "我要捐款"
+                        break;
+                      case 'apply_participation':
+                        this.selectedHackathon.statusText = "我要报名"
+                        break;
+                      case 'gaming':
+                        this.selectedHackathon.statusText = "结束比赛"
+                        break;
+                    }
                     if(this.selectedHackathon['contract'] != undefined && this.selectedHackathon['contract'] != null){
                         console.log(this.selectedHackathon['contract'])
-                        this.host_fund = this.selectedHackathon['contract']['crowd_fund_target'] - 
+                        this.host_fund = this.selectedHackathon['contract']['crowd_fund_target'] -
                             this.selectedHackathon['contract']['remain_crowd_fund'];
                         this.target_fund = this.selectedHackathon['contract']['crowd_fund_target'];
                         console.log(this.selectedHackathon['contract'])
@@ -144,4 +160,131 @@ export class DhcpProjectComponent implements OnInit {
         }
         return (poolCurrent / poolTotal) * 100 + "%";
     }
+
+    public statusBtn() {
+      console.log("status ben")
+      console.log(this.selectedHackathon);
+
+      (async () => {
+        switch(this.selectedHackathon.current_status){
+          case 'preparation':
+          await preparation(this.selectedHackathon)
+          location.reload()
+          break;
+          case 'crow_funding':
+          await crowFunding(this.selectedHackathon)
+          // location.reload()
+          break;
+
+          case 'apply_participation':
+          await startSignUp(this.selectedHackathon)
+          break;
+          case 'gaming':
+          await startVote(this.selectedHackathon)
+          break;
+        }
+      })().catch(console.error)
+
+    }
+}
+
+async function preparation(selectedHackathon) {
+  const { data } = await axios.post('http://192.168.2.70:3000/hackathons/encode.json', {
+    "function": "startCrowdFound",
+    "args":[],
+    "contract": "hackathon"
+  })
+
+  const res = await window.nervosweb3.eth.sendTransaction({
+    to: selectedHackathon.address,
+    nonce: Date.now(),
+    quota: 1000000000,
+    data: data.data,
+    value: 0,
+    chainId: 1,
+    version: 0,
+  })
+
+  await getReceipt(res.hash)
+}
+
+// window.MyAddress
+async function crowFunding(selectedHackathon) {
+  const address = window.MyAddress
+  console.log({
+    "function": "buy",
+    "args":[address],
+    "contract": "hackathon"
+  })
+  const { data } = await axios.post('http://192.168.2.70:3000/hackathons/encode.json', {
+    "function": "buy",
+    "args":[address],
+    "contract": "hackathon"
+  })
+
+
+  const res = await window.nervosweb3.eth.sendTransaction({
+    to: selectedHackathon.address,
+    nonce: Date.now(),
+    quota: 1000000000,
+    data: data.data,
+    value: 20,
+    chainId: 1,
+    version: 0,
+  })
+
+  await getReceipt(res.hash)
+}
+
+async function startSignUp(selectedHackathon) {
+  const { data } = await axios.post('http://192.168.2.70:3000/hackathons/encode.json', {
+    "function": "startSignUp",
+    "args":[],
+    "contract": "hackathon"
+  })
+
+  const res = await window.nervosweb3.eth.sendTransaction({
+    to: selectedHackathon.address,
+    nonce: Date.now(),
+    quota: 1000000000,
+    data: data.data,
+    value: 20,
+    chainId: 1,
+    version: 0,
+  })
+
+  await getReceipt(res.hash)
+}
+
+async function startVote(selectedHackathon) {
+  const { data } = await axios.post('http://192.168.2.70:3000/hackathons/encode.json', {
+    "function": "startVote",
+    "args":[],
+    "contract": "hackathon"
+  })
+
+  const res = await window.nervosweb3.eth.sendTransaction({
+    to: selectedHackathon.address,
+    nonce: Date.now(),
+    quota: 1000000000,
+    data: data.data,
+    value: 20,
+    chainId: 1,
+    version: 0,
+  })
+
+  await getReceipt(res.hash)
+}
+
+async function getReceipt(hash) {
+  while(true) {
+    const data = await nervosweb3.eth.getTransactionReceipt(hash)
+
+    if (!data.result) {
+      continue
+    }
+
+    console.log(data)
+    return data
+  }
 }
