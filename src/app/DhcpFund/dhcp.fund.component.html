@@ -4,63 +4,68 @@
         <div class="col-4"></div>
         <div class="col-4" style="background:#f8f8ff">
             <form>
+              <div>
+                  <label class="col-4">名称</label>
+                  <input id="name">
+              </div>
                 <div>
-                    <label class="col-2">目标众筹</label>
+                    <label class="col-4">目标众筹</label>
                     <input id="target_eth">
                 </div>
                 <div>
-                    <label class="col-2">众筹持续时间</label>
+                    <label class="col-4">众筹持续时间</label>
                     <input id="fund_period">
                 </div>
 
                 <div>
-                    <label class="col-2">报名持续时间</label>
+                    <label class="col-4">报名持续时间</label>
                     <input id="register_period">
                 </div>
 
                 <div>
-                    <label class="col-2">比赛持续时间</label>
+                    <label class="col-4">比赛持续时间</label>
                     <input id="game_period">
                 </div>
                 <div>
-                    <label class="col-2">投票持续时间</label>
+                    <label class="col-4">投票持续时间</label>
                     <input id="voting_period">
                 </div>
                 <div>
-                    <label class="col-2">报名押金</label>
+                    <label class="col-4">报名押金</label>
                     <input id="security_deposit">
                 </div>
                 <div>
-                    <label class="col-2">报名费</label>
+                    <label class="col-4">报名费</label>
                     <input id="register_fee">
                 </div>
                 <div>
-                    <label class="col-2">冠军</label>
-                    <input id="register_fee">
+                    <label class="col-4">冠军</label>
+                    <input id="first">
                 </div>
                 <div>
-                    <label class="col-2">亚军</label>
-                    <input id="register_fee">
+                    <label class="col-4">亚军</label>
+                    <input id="secondly">
                 </div>
                 <div>
-                    <label class="col-2">季军</label>
-                    <input id="register_fee">
+                    <label class="col-4">季军</label>
+                    <input id="third">
                 </div>
                 <div>
-                    <label class="col-2">投票奖金</label>
-                    <input id="register_fee">
+                    <label class="col-4">投票奖金</label>
+                    <input id="voting_fee">
                 </div>
                 <div>
-                    <label class="col-2">队伍上限</label>
-                    <input id="register_fee">
+                    <label class="col-4">队伍数量</label>
+                    <input id="lower_limit">
                 </div>
                 <div>
-                    <label class="col-2">队伍下限</label>
-                    <input id="register_fee">
+                  <label class="col-4">简介</label>
+                  <textarea name="host_introduction" rows="8" cols="80"></textarea>
                 </div>
-                <button class="btn btn-primary" (click)="registerNewUser()">提交</button>
+                <div class="offset-2">
+                    <button class="btn btn-primary" type="button" (click)="submitHackathon($event)">提交</button>
+                </div>
             </form>
-            <div class="col-4"></div>
         </div>
     </div>
 </div>
