@@ -19,3 +19,7 @@
 .project-lsit .list-group a:first{
     border-radius: 0%
 }
+
+.nav-item {
+    cursor: pointer;
+}
