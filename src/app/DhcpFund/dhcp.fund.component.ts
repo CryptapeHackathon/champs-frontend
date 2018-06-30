@@ -6,6 +6,7 @@ import axios from 'axios'
 import * as moment from 'moment'
 import * as $ from 'jquery'
 
+const nervosweb3 = (window as any).nervosweb3
 @Component({
     moduleId: module.id,
     templateUrl: './dhcp.fund.component.html',
@@ -78,7 +79,7 @@ export class DhcpFundComponent implements OnInit {
       .then(function (response) {
         console.log(response)
         const abiData = response.data.data
-        return window.nervosweb3.eth.sendTransaction({
+        return nervosweb3.eth.sendTransaction({
           to: '0x430ae2d2860a2aadd7acdb4fb3c1e7574964217c',
           nonce: Date.now(),
           quota: 1000000000,
@@ -88,17 +89,18 @@ export class DhcpFundComponent implements OnInit {
           version: 0,
         })
       }).then(data => {
-        console.log('then ', data)
         setTimeout(() => {
           getReceipt(data.hash).then(address => {
-            console.log('address', 'submitHackathon')
             axios.post('http://192.168.2.70:3000/hackathons.json', {
               name: this.name,
               host_introduction: this.hostIntroduction,
               contract: args,
               address,
             })
-            .then(console.log)
+            .then(data => {
+              location.href = `/dhcpProject;projectId=${data.data.id}`
+              console.log(data, 'create hackathon')
+            })
             .catch(console.error)
           })
         }, 1000)
@@ -106,25 +108,6 @@ export class DhcpFundComponent implements OnInit {
       .catch(function (error) {
         console.log(error);
       });
-        // this.hackathonIntro = ((document.getElementById("hackathonIntro") as HTMLInputElement).value);
-        // this.address = ((document.getElementById("address") as HTMLInputElement).value);
-        // this.target_eth = ((document.getElementById("target_eth") as HTMLInputElement).value);
-        // this.host_eth = ((document.getElementById("host_eth") as HTMLInputElement).value);;
-        // this.fund_period_time = ((document.getElementById("fund_period") as HTMLInputElement).value);;
-        // this.game_period_time = ((document.getElementById("game_period") as HTMLInputElement).value);;
-        // // register_period
-        // // voting_period
-        // var url = "192.168.2.70:3000/hackathons/create-cli.json";
-        //
-        // var postData = {
-        //     args: [this.target_eth, ]
-        // };
-        //
-        // console.log(postData)
-        // // window.nerverweb3.eth.sendTransaction({
-        //
-        // // })
-        // // this.http.post(url, data).subscribe();
     }
 
     ngOnInit(){
@@ -133,7 +116,7 @@ export class DhcpFundComponent implements OnInit {
 
 async function getReceipt(hash) {
   while(true) {
-    const data = await window.nervosweb3.eth.getTransactionReceipt(hash)
+    const data = await nervosweb3.eth.getTransactionReceipt(hash)
 
     if (!data.result) {
       continue
@@ -141,7 +124,6 @@ async function getReceipt(hash) {
 
     const { logs } = data.result
     const a = Array.from(logs[1].topics[2])
-    console.log(`0x${a.slice(a.length - 26, a.length).join('')}`, 'getReceipt')
-    return Promise.resolve(`0x${a.slice(a.length - 26, a.length).join('')}`)
+    return Promise.resolve(`0x${a.slice(26, a.length).join('')}`)
   }
 }
