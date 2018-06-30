@@ -1,53 +1,70 @@
 <div>
     <dhcp-navbar></dhcp-navbar>
     <div class="row">
-    <div class="col-4"></div>
-    <div class="col-4" style="background:#f8f8ff">
-        <form>
-            <div>
-                <label class="col-2">黑客松名字 </label>
-                <input id="hackathonName" type="text">
-            </div>
-            <div>
-                <label class='col-2'>黑客松简介 </label>
-                <input id="hackathonIntro" type="text">
-            </div>
-            <div>
-                <label class="col-2">地址</label>
-                <input id="address" type="text">
-            </div>
-            <div>
-                <label class="col-2">目标众筹</label>
-                <input id="target_eth">
-            </div>
-            <div>
-                <label class="col-2">自己认购</label>
-                <input id="host_eth">
-            </div>
-            <div>
-                <label class="col-2">开始众筹时间</label>
-                <input id="fund_start_time">
-            </div>
-            <div>
-                <label class="col-2">结束众筹时间</label>
-                <input id="fund_end_time">
-            </div>
-            <div>
-                <label class="col-2">开始比赛时间</label>
-                <input id="game_start_time">
-            </div>
-            <div>
-                <label class="col-2">结束比赛时间</label>
-                <input id="game_end_time">
-            </div>
-
-            <button class="btn btn-primary" (click)="registerNewUser()">提交</button>
-        </form>
         <div class="col-4"></div>
-        <!-- 黑客松名字： {{selectedHackathon.name}}<br>
+        <div class="col-4" style="background:#f8f8ff">
+            <form>
+                <div>
+                    <label class="col-2">目标众筹</label>
+                    <input id="target_eth">
+                </div>
+                <div>
+                    <label class="col-2">众筹持续时间</label>
+                    <input id="fund_period">
+                </div>
+
+                <div>
+                    <label class="col-2">报名持续时间</label>
+                    <input id="register_period">
+                </div>
+
+                <div>
+                    <label class="col-2">比赛持续时间</label>
+                    <input id="game_period">
+                </div>
+                <div>
+                    <label class="col-2">投票持续时间</label>
+                    <input id="voting_period">
+                </div>
+                <div>
+                    <label class="col-2">报名押金</label>
+                    <input id="security_deposit">
+                </div>
+                <div>
+                    <label class="col-2">报名费</label>
+                    <input id="register_fee">
+                </div>
+                <div>
+                    <label class="col-2">冠军</label>
+                    <input id="register_fee">
+                </div>
+                <div>
+                    <label class="col-2">亚军</label>
+                    <input id="register_fee">
+                </div>
+                <div>
+                    <label class="col-2">季军</label>
+                    <input id="register_fee">
+                </div>
+                <div>
+                    <label class="col-2">投票奖金</label>
+                    <input id="register_fee">
+                </div>
+                <div>
+                    <label class="col-2">队伍上限</label>
+                    <input id="register_fee">
+                </div>
+                <div>
+                    <label class="col-2">队伍下限</label>
+                    <input id="register_fee">
+                </div>
+                <button class="btn btn-primary" (click)="registerNewUser()">提交</button>
+            </form>
+            <div class="col-4"></div>
+            <!-- 黑客松名字： {{selectedHackathon.name}}<br>
         众筹地址： {{selectedHackathon.address}}<br>
         主办方资金： {{selectedHackathon.host_fund_eth}}<br>
         目标筹集资金：{{selectedHackathon.target_fund_eth}}<br> -->
+        </div>
     </div>
-</div>
 </div>

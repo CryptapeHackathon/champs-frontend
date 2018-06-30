@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core"
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Http } from '@angular/http' 
+import { Http } from '@angular/http'
 import { environment } from "../../environments/environment";
 
 @Component({
@@ -15,9 +15,10 @@ export class DhcpProjectComponent implements OnInit {
     private projectId: string = "";
     private currentTeamProjectName: string = "";
     private teamName: string = ""
+    private teamProject: string = ""
     private hackathons: Object[];
     private teams: Object[];
-    private selectedHackathon: Object = {current_status:'default'};
+    private selectedHackathon: Object = { current_status: 'default' };
     private statusMap = {
         default: -1,
         preparation: 0,
@@ -30,7 +31,7 @@ export class DhcpProjectComponent implements OnInit {
     }
     private host_fund: number = 0;
     private target_fund: number = 0;
-    
+
 
     //need a functino to get all information about a specific hks
     ngOnInit() {
@@ -47,61 +48,68 @@ export class DhcpProjectComponent implements OnInit {
         var getTeams = environment.backendMethods.getTeamMethod;
 
         this.http.get("http://" + url + "/" + getHackasons)
-        .subscribe(
-            (data) => {
-                console.log('onNext')
-                this.hackathons = JSON.parse(data['_body']);
-                console.log(this.projectId);
-                this.selectedHackathon = this.hackathons.filter(x => x['id'] == Number.parseInt(this.projectId))[0];
-                if(this.selectedHackathon['host_fund_eth'] != undefined 
-                    &&this.selectedHackathon['host_fund_eth'] != null
-                    && this.selectedHackathon['target_fund_eth'] != undefined
-                    && this.selectedHackathon['target_fund_eth'] != null){
-                    this.host_fund = this.selectedHackathon['host_fund_eth'];
-                    this.target_fund = this.selectedHackathon['target_fund_eth'];    
+            .subscribe(
+                (data) => {
+                    console.log('onNext')
+                    this.hackathons = JSON.parse(data['_body']);
+                    console.log(this.projectId);
+                    this.selectedHackathon = this.hackathons.filter(x => x['id'] == Number.parseInt(this.projectId))[0];
+
+                    if(this.selectedHackathon['contract'] != undefined && this.selectedHackathon['contract'] != null){
+                        console.log(this.selectedHackathon['contract'])
+                        this.host_fund = this.selectedHackathon['contract']['crowd_fund_target'] - 
+                            this.selectedHackathon['contract']['remain_crowd_fund'];
+                        this.target_fund = this.selectedHackathon['contract']['crowd_fund_target'];
+                        console.log(this.selectedHackathon['contract'])
+                        console.log(this.selectedHackathon)
+                    }
+                },
+                (err) => {
+                    console.log('error: ' + err)
+                },
+                () => {
+                    console.log('get hackathons complete');
                 }
-                console.log(this.selectedHackathon)
-            },
-            (err) => {
-                console.log('error: ' + err)
-            },
-            () => {
-                console.log('get hackathons complete');
-            }
-        );
+            );
 
         console.log("http://" + url + "/hackathons/" + this.projectId + "/teams.json");
         this.http.get("http://" + url + "/hackathons/" + this.projectId + "/teams.json")
-        .subscribe(
-            (data) => {
-                this.teams = JSON.parse(data['_body']);
-                console.log(this.teams);
-            },
-            (err) => {
-                console.error('error: ' + err)
-            },
-            () => {
-                console.log('get teams complete');
-            }
-        );
+            .subscribe(
+                (data) => {
+                    this.teams = JSON.parse(data['_body']);
+                    console.log(this.teams);
+                },
+                (err) => {
+                    console.error('error: ' + err)
+                },
+                () => {
+                    console.log('get teams complete');
+                }
+            );
     }
 
-    constructor(private activatedRoute: ActivatedRoute, private http:Http) { }
+    constructor(private activatedRoute: ActivatedRoute, private http: Http) { }
 
-    
 
-    private showByStatus(status: string, byStatus: string){
+
+    private showByStatus(status: string, byStatus: string) {
         var sequence: number = this.statusMap[status];
         var bar: number = this.statusMap[byStatus];
-        if(sequence >= bar){
+        if (sequence >= bar) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
-    private showTeamProjectWithName(teamName: string) {
+
+    voteForTeamWithAddress(address){
+        alert(address)
+    }
+
+    private showTeamProjectWithName(teamName: string, teamProject: string) {
         this.teamName = teamName;
+        this.teamProject = teamProject;
         this.showTeamProject = true;
     }
 

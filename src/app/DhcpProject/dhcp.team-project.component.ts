@@ -9,15 +9,16 @@ import { Http } from "@angular/http";
 
 export class DhcpTeamProjectComponent implements OnInit{
     @Input() TeamName: string;
-    
+    @Input() teamIntro: string;
+
     constructor(private http: Http){}
 
     private teams: Object[];
     private intro: string = "ssss";
-    private editIntro(){
-        this.intro = ((document.getElementById("teamIntro") as HTMLInputElement).value);
-        alert(this.intro);
-    }
+    // private editIntro(){
+    //     this.intro = ((document.getElementById("teamIntro") as HTMLInputElement).value);
+    //     alert(this.intro);
+    // }
 
     ngOnInit(){
         this.http.get('http://192.168.2.70:3000/hackathons/2/teams.json')

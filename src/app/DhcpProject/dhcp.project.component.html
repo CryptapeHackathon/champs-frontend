@@ -22,9 +22,13 @@
                 <div>
                     <div *ngIf="poolInfo">
                         <h5>众筹中</h5>
+                        <div>众筹地址：{{selectedHackathon.address}}</div><button class="btn btn-primary">我要众筹</button>
+                        <div>众筹额度：{{host_fund}}</div>
+                        <div>已有募集：{{target_fund}}</div>
                         <div *ngIf="showByStatus(selectedHackathon['current_status'], 'crow_funding')" class="progress">
-                            <div>众筹地址： {{selectedHackathon.address}}<br></div>
-                            <div class="progress-bar progress-bar-striped" [ngClass]="setProgressClass(host_fund, target_fund)" role="progressbar" [ngStyle]="{'width':setPercentage(5,10)}"
+                            <div class="progress-bar progress-bar-striped" 
+                                [ngClass]="setProgressClass(host_fund, target_fund)" 
+                                role="progressbar" [ngStyle]="{'width':setPercentage(host_fund,host_fund)}"
                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div *ngIf="!showByStatus(selectedHackathon['current_status'], 'crow_funding')">
@@ -58,7 +62,7 @@
                         <h5>投票中</h5>
                         <div *ngIf="!showByStatus(selectedHackathon['current_status'], 'voting')">
                             <p>
-                                该黑客松还未开始比赛
+                                该黑客松还未开始投票
                             </p>
                         </div>
                         <div *ngIf="showByStatus(selectedHackathon['current_status'], 'voting')">
@@ -70,17 +74,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>队名1</td>
-                                        <td>票数</td>
-                                    </tr>
-                                    <tr>
-                                        <td>队名2</td>
-                                        <td>票数2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>队名3</td>
-                                        <td>票数3</td>
+                                    <tr *ngFor="let team of teams">
+                                        <td>{{team.name}}</td>
+                                        <td>{{team.introduction}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -124,22 +120,24 @@
                             <thead>
                                 <tr>
                                     <th scope="col">队名</th>
-                                    <th scope="col">公钥</th>
+                                    <th scope="col">地址</th>
                                     <th scope="col">信息</th>
+                                    <th scope='col'>投票</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let team of teams">
                                     <td>{{team['name']}}</td>
-                                    <td>{{team['address']}}</td>
-                                    <button (click)="showTeamProjectWithName(team['name'])">Show Team Project</button>
+                                    <td>{{team['address']}}</td>    
+                                    <td><button class="btn btn-primary" (click)="showTeamProjectWithName(team['name'], team['introduction'])">查看详细信息</button></td>
+                                    <td><button class="btn btn-primary" (click)="voteForTeamWithAddress(team['address'])">投一票</button></td>
                                 </tr>
                             </tbody>
                         </table>
                         <button *ngIf="showTeamProject" (click)="closeTeamProject()">Close</button>
 
                         <div style="margin-top:5em" *ngIf="showTeamProject">
-                            <team-project [TeamName]="teamName"></team-project>
+                            <team-project [TeamName]="teamName" [teamIntro]="teamProject"></team-project>
                         </div>
                     </div>
                 </div>

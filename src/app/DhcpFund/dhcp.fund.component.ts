@@ -17,10 +17,8 @@ export class DhcpFundComponent implements OnInit {
     private address: string = '';
     private target_eth: string = '';
     private host_eth: string = '';
-    private fund_start_time: string ='';
-    private fund_end_time: string = '';
-    private game_start_time: string = '';
-    private game_end_time: string = '';
+    private fund_period_time: string ='';
+    private game_period_time: string = '';
 
 
     constructor(private http: Http, private activatedRoute: ActivatedRoute){}
@@ -31,10 +29,16 @@ export class DhcpFundComponent implements OnInit {
         this.address = ((document.getElementById("address") as HTMLInputElement).value);
         this.target_eth = ((document.getElementById("target_eth") as HTMLInputElement).value);
         this.host_eth = ((document.getElementById("host_eth") as HTMLInputElement).value);;
-        this.fund_start_time = ((document.getElementById("fund_start_time") as HTMLInputElement).value);;
-        this.fund_end_time = ((document.getElementById("fund_end_time") as HTMLInputElement).value);;
-        this.game_start_time = ((document.getElementById("game_start_time") as HTMLInputElement).value);;
-        this.game_end_time = ((document.getElementById("game_end_time") as HTMLInputElement).value);;
+        this.fund_period_time = ((document.getElementById("fund_period") as HTMLInputElement).value);;
+        this.game_period_time = ((document.getElementById("game_period") as HTMLInputElement).value);;
+        // register_period
+        // voting_period
+        var url = "192.168.2.70:3000/hackathons/create-cli.json";
+
+        var postData = {
+            args: [this.target_eth, ]
+        };
+        // this.http.post(url, data).subscribe();
     }
 
     ngOnInit(){
